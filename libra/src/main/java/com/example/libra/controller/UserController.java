@@ -22,6 +22,25 @@ public class UserController {
         return  Result.success();
     }
 
+    @PutMapping("/update")
+    public Result update(@RequestBody User user){
+        userService.update(user);
+        return  Result.success();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public Result delete(@PathVariable Integer id){
+        userService.deletebyId(id);
+        return  Result.success();
+    }
+
+    @GetMapping("/{id}")
+    public Result getbyId(@PathVariable Integer id)
+    {
+        User user = userService.getbyId(id);
+        return Result.success(user);
+    }
+
     @GetMapping("/list")
     public Result list()
     {

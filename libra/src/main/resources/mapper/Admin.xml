@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.libra.mapper.AdminMapper">
+
+    <insert id="save">
+        insert into admin(name,librarynumber,age,sex,phone,password)
+        values(#{name},#{librarynumber},#{age},#{sex},#{phone},#{password})
+    </insert>
+
+    <update id="updatebyId">
+        update admin set name =#{name},age=#{age},sex=#{sex},phone=#{phone} where id=#{id}
+    </update>
+
+    <delete id="deletebyId">
+        delete from admin where id = #{id}
+    </delete>
+
+    <select id="list" resultType="com.example.libra.entity.Admin">
+        SELECT * FROM admin
+    </select>
+
+    <select id="listByCondition" resultType="com.example.libra.entity.Admin">
+        SELECT * FROM admin
+            <where>
+                <if test="name!=null and name!=''">
+                    name like concat('%',#{ name },'%')
+                </if>
+                <if test="phone!=null and phone!=''">
+                    and phone like concat('%',#{ phone },'%')
+                </if>
+            </where>
+        order by id desc
+    </select>
+
+    <select id="getbyId" resultType="com.example.libra.entity.Admin">
+        select * from admin where id=#{id}
+    </select>
+
+    <select id="getbyLibrarynumberAndPassword" resultType="com.example.libra.entity.Admin">
+        select * from admin where librarynumber = #{librarynumber} and password = #{password}
+    </select>
+</mapper>

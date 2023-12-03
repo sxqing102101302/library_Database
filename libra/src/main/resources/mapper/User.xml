@@ -5,9 +5,17 @@
 <mapper namespace="com.example.libra.mapper.UserMapper">
 
     <insert id="save">
-        insert into library_user(name,username,age,sex,phone)
-        values(#{name},#{username},#{age},#{sex},#{phone})
+        insert into library_user(name,librarynumber,age,sex,phone)
+        values(#{name},#{librarynumber},#{age},#{sex},#{phone})
     </insert>
+
+    <update id="updatebyId">
+        update library_user set name =#{name},age=#{age},sex=#{sex},phone=#{phone} where id=#{id}
+    </update>
+
+    <delete id="deletebyId">
+        delete from library_user where id = #{id}
+    </delete>
 
     <select id="list" resultType="com.example.libra.entity.User">
         SELECT * FROM library_user
@@ -23,5 +31,10 @@
                     and phone like concat('%',#{ phone },'%')
                 </if>
             </where>
+        order by id desc
+    </select>
+
+    <select id="getbyId" resultType="com.example.libra.entity.User">
+        select * from library_user where id=#{id}
     </select>
 </mapper>
